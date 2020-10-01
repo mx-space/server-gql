@@ -1,7 +1,7 @@
 /*
  * @Author: Innei
  * @Date: 2020-10-01 13:12:26
- * @LastEditTime: 2020-10-01 13:55:27
+ * @LastEditTime: 2020-10-01 15:32:18
  * @LastEditors: Innei
  * @FilePath: /mx-server-next/src/app.module.ts
  * @Mark: Coding with Love
@@ -11,10 +11,9 @@ import { Module } from '@nestjs/common'
 import { GraphQLModule } from '@nestjs/graphql'
 import { AppController } from './app.controller'
 import { AppService } from './app.service'
-import { isDev } from './utils'
-import { SharedModule } from './shared/shared.module'
 import { ConfigsModule } from './common/global/configs/configs.module'
-import { join } from 'path'
+import { SharedModule } from './shared/shared.module'
+import { isDev } from './utils'
 
 @Module({
   imports: [
@@ -23,7 +22,10 @@ import { join } from 'path'
     GraphQLModule.forRoot({
       debug: isDev,
       playground: isDev,
-      autoSchemaFile: join(process.cwd(), 'schema.gql'),
+      autoSchemaFile: 'schema.gql',
+      installSubscriptionHandlers: true,
+      // typePaths: ['./**/*.gql'],
+      // autoSchemaFile: true,
     }),
     SharedModule,
   ],

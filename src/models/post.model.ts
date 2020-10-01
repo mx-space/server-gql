@@ -1,0 +1,46 @@
+/*
+ * @Author: Innei
+ * @Date: 2020-10-01 14:17:38
+ * @LastEditTime: 2020-10-01 14:52:14
+ * @LastEditors: Innei
+ * @FilePath: /mx-server-next/src/models/post.model.ts
+ * @Mark: Coding with Love
+ */
+import { TextImageRecordType } from '@libs/db/models/base.model'
+import Post from '@libs/db/models/post.model'
+import { Field, ObjectType } from '@nestjs/graphql'
+import { BaseGLModel, ImageRecordModel, PostItemCount } from './base.model'
+import { CategoryItemModel } from './category.model'
+@ObjectType()
+export class PostItemModel extends BaseGLModel implements Post {
+  public readonly title: string
+
+  public readonly slug: string
+
+  public readonly text: string
+
+  public readonly allowComment: boolean
+
+  @Field(() => CategoryItemModel)
+  public readonly category: CategoryItemModel
+
+  // @ts-ignore
+  public readonly categoryId: string
+
+  public readonly commentsIndex: number
+
+  public readonly copyright: boolean
+
+  @Field(() => PostItemCount)
+  public readonly count: PostItemCount
+
+  public readonly hide: boolean
+
+  @Field(() => [ImageRecordModel])
+  public readonly images: TextImageRecordType[]
+
+  public readonly summary: string
+
+  @Field(() => [String])
+  public readonly tags: string[]
+}

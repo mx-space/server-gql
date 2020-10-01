@@ -13,6 +13,9 @@
     }
   },
   "compilerOptions": {
-    "webpack": true
+    "webpack": true,
+    "plugins": [
+      "@nestjs/graphql/plugin"
+    ]
   }
 }

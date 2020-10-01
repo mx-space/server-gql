@@ -1,12 +1,12 @@
 /*
  * @Author: Innei
  * @Date: 2020-10-01 13:12:26
- * @LastEditTime: 2020-10-01 13:41:41
+ * @LastEditTime: 2020-10-01 15:26:28
  * @LastEditors: Innei
  * @FilePath: /mx-server-next/src/main.ts
  * @Mark: Coding with Love
  */
-import { Logger } from '@nestjs/common'
+import { Logger, ValidationPipe } from '@nestjs/common'
 import { NestFactory } from '@nestjs/core'
 import { AppModule } from './app.module'
 import { isDev } from './utils'
@@ -25,12 +25,22 @@ async function bootstrap() {
     },
     credentials: true,
   })
+  app.useGlobalPipes(
+    new ValidationPipe({
+      transform: true,
+      whitelist: true,
+      errorHttpStatusCode: 422,
+    }),
+  )
 
   app.setGlobalPrefix(isDev ? '' : `api/v${APIVersion}`)
 
-  await app.listen(PORT, () => {
+  await app.listen(PORT, async () => {
     if (isDev) {
-      Logger.debug('Server listen on ' + `${app.getUrl()}`)
+      Logger.debug('Server listen on ' + `http://localhost:${PORT}`)
+      Logger.debug(
+        'GraphQL playground listen on ' + `http://localhost:${PORT}/graphql`,
+      )
     }
   })
 }
