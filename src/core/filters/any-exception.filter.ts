@@ -1,9 +1,9 @@
 /*
  * @Author: Innei
  * @Date: 2020-05-08 20:01:58
- * @LastEditTime: 2020-09-06 11:20:09
+ * @LastEditTime: 2020-10-01 20:19:29
  * @LastEditors: Innei
- * @FilePath: /mx-server/src/core/filters/any-exception.filter.ts
+ * @FilePath: /mx-server-next/src/core/filters/any-exception.filter.ts
  * @Coding with Love
  */
 
@@ -15,8 +15,8 @@ import {
   HttpStatus,
   Logger,
 } from '@nestjs/common'
-import { FastifyReply, FastifyRequest } from 'fastify'
-import { getIp } from '../../utils/ip'
+
+import { getIp } from 'src/utils'
 type myError = {
   readonly status: number
   readonly statusCode?: number
@@ -30,8 +30,8 @@ export class AllExceptionsFilter implements ExceptionFilter {
   catch(exception: unknown, host: ArgumentsHost) {
     // super.catch(exception, host)
     const ctx = host.switchToHttp()
-    const response = ctx.getResponse<FastifyReply>()
-    const request = ctx.getRequest<FastifyRequest>()
+    const response = ctx.getResponse()
+    const request = ctx.getRequest()
 
     const status =
       exception instanceof HttpException

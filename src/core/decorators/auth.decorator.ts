@@ -9,7 +9,7 @@
 
 import { applyDecorators, UseGuards } from '@nestjs/common'
 import { AuthGuard } from '@nestjs/passport'
-import { ApiBearerAuth, ApiUnauthorizedResponse } from '@nestjs/swagger'
+
 import { isDev } from 'src/utils'
 
 export function Auth() {
@@ -17,9 +17,6 @@ export function Auth() {
   if (!isDev) {
     decorators.push(UseGuards(AuthGuard('jwt')))
   }
-  decorators.push(
-    ApiBearerAuth(),
-    ApiUnauthorizedResponse({ description: 'Unauthorized' }),
-  )
+
   return applyDecorators(...decorators)
 }

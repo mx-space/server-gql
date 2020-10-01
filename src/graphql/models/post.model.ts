@@ -1,9 +1,9 @@
 /*
  * @Author: Innei
  * @Date: 2020-10-01 14:17:38
- * @LastEditTime: 2020-10-01 14:52:14
+ * @LastEditTime: 2020-10-01 21:19:31
  * @LastEditors: Innei
- * @FilePath: /mx-server-next/src/models/post.model.ts
+ * @FilePath: /mx-server-next/src/graphql/models/post.model.ts
  * @Mark: Coding with Love
  */
 import { TextImageRecordType } from '@libs/db/models/base.model'
@@ -36,11 +36,11 @@ export class PostItemModel extends BaseGLModel implements Post {
 
   public readonly hide: boolean
 
-  @Field(() => [ImageRecordModel])
-  public readonly images: TextImageRecordType[]
+  @Field(() => [ImageRecordModel], { nullable: true })
+  public readonly images?: TextImageRecordType[]
 
-  public readonly summary: string
+  public readonly summary?: string
 
-  @Field(() => [String])
+  @Field(() => [String], { nullable: true })
   public readonly tags: string[]
 }

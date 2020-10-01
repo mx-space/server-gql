@@ -1,12 +1,12 @@
 /*
  * @Author: Innei
  * @Date: 2020-04-30 12:21:51
- * @LastEditTime: 2020-10-01 13:34:08
+ * @LastEditTime: 2020-10-01 20:15:47
  * @LastEditors: Innei
  * @FilePath: /mx-server-next/src/utils/index.ts
  * @Coding with Love
  */
-
+import { Request } from 'express'
 export function addConditionToSeeHideContent(isMaster: boolean) {
   return isMaster
     ? {
@@ -87,4 +87,18 @@ export function arrDifference(a1: string[], a2: string[]) {
   }
 
   return diff
+}
+
+export const getIp = (request: Request) => {
+  // @ts-ignore
+  let ip: string =
+    request.headers['x-forwarded-for'] ||
+    request.ip ||
+    request.connection.remoteAddress ||
+    request.socket.remoteAddress ||
+    undefined
+  if (ip && ip.split(',').length > 0) {
+    ip = ip.split(',')[0]
+  }
+  return ip
 }

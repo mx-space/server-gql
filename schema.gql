@@ -14,6 +14,15 @@ type PostItemCount {
   read: Float
 }
 
+type PagerModel {
+  total: Float!
+  size: Float!
+  currentPage: Float!
+  totalPage: Float!
+  hasNextPage: Boolean!
+  hasPrevPage: Boolean!
+}
+
 type CategoryItemModel {
   _id: ID!
   created: DateTime!
@@ -34,8 +43,8 @@ type PostItemModel {
   modified: DateTime!
   category: CategoryItemModel!
   count: PostItemCount!
-  images: [ImageRecordModel!]!
-  tags: [String!]!
+  images: [ImageRecordModel!]
+  tags: [String!]
   title: String!
   slug: String!
   text: String!
@@ -44,9 +53,21 @@ type PostItemModel {
   commentsIndex: Float!
   copyright: Boolean!
   hide: Boolean!
-  summary: String!
+  summary: String
+}
+
+type PostPagerArgs {
+  pager: PagerModel!
+  data: [PostItemModel!]!
 }
 
 type Query {
   getPostById(id: ID!): PostItemModel!
+  getPostBySlug(category: String!, slug: String!): PostItemModel!
+  getPostsWithPager(sortOrder: SortOrder, size: Float, page: Float, state: Float, sortBy: String, year: Float): PostPagerArgs!
+}
+
+enum SortOrder {
+  DESC
+  ASC
 }
