@@ -41,8 +41,7 @@ export class CategoriesService extends BaseService<Category> {
         categoryId,
         ...extraCondition,
         ...condition,
-      })
-      .select('title created slug _id')
+      }).lean()
       .sort({ created: -1 })
   }
 

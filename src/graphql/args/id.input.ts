@@ -1,12 +1,19 @@
 /*
  * @Author: Innei
  * @Date: 2020-10-01 15:45:04
- * @LastEditTime: 2020-10-01 20:30:44
+ * @LastEditTime: 2020-10-02 14:21:19
  * @LastEditors: Innei
  * @FilePath: /mx-server-next/src/graphql/args/id.input.ts
  * @Mark: Coding with Love
  */
-import { ArgsType, Field, ID, Int, registerEnumType } from '@nestjs/graphql'
+import {
+  ArgsType,
+  Field,
+  ID,
+  Int,
+  PartialType,
+  registerEnumType,
+} from '@nestjs/graphql'
 import {
   IsEnum,
   IsInt,
@@ -26,7 +33,12 @@ export class IdInputArgsDto {
   @Field(() => ID)
   id: string
 }
-
+@ArgsType()
+export class IdInputArgsDtoOptional {
+  @IsMongoId()
+  @IsOptional()
+  id?: string
+}
 @ArgsType()
 export class PagerArgsDto {
   @IsInt()

@@ -1,14 +1,15 @@
 /*
  * @Author: Innei
  * @Date: 2020-04-30 12:21:51
- * @LastEditTime: 2020-07-31 19:52:35
+ * @LastEditTime: 2020-10-02 11:31:01
  * @LastEditors: Innei
- * @FilePath: /mx-server/src/auth/jwt.strategy.ts
+ * @FilePath: /mx-server-next/src/auth/jwt.strategy.ts
  * @Coding with Love
  */
 
-import { Injectable, UnauthorizedException } from '@nestjs/common'
+import { Injectable } from '@nestjs/common'
 import { PassportStrategy } from '@nestjs/passport'
+import { AuthenticationError } from 'apollo-server-express'
 import { ExtractJwt, Strategy, StrategyOptions } from 'passport-jwt'
 import { AuthService } from './auth.service'
 import { JwtPayload } from './interfaces/jwt-payload.interface'
@@ -28,6 +29,6 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     if (user) {
       return user
     }
-    throw new UnauthorizedException('身份已过期')
+    throw new AuthenticationError('身份已过期')
   }
 }

@@ -1,13 +1,13 @@
 import { UnprocessableEntityException } from '@nestjs/common'
+import { ArgsType, Field, ObjectType, registerEnumType } from '@nestjs/graphql'
 /*
  * @Author: Innei
  * @Date: 2020-04-30 12:21:51
- * @LastEditTime: 2020-08-02 16:22:02
+ * @LastEditTime: 2020-10-02 14:22:13
  * @LastEditors: Innei
- * @FilePath: /mx-server/src/shared/categories/dto/category.dto.ts
+ * @FilePath: /mx-server-next/src/shared/categories/dto/category.input.ts
  * @MIT
  */
-import { ApiProperty } from '@nestjs/swagger'
 import { Transform } from 'class-transformer'
 import {
   IsBoolean,
@@ -19,21 +19,23 @@ import {
 } from 'class-validator'
 import { uniq } from 'lodash'
 import { IsBooleanOrString } from 'src/common/decorators/isBooleanOrString'
+import { PagerModelImplements, PagerModel } from 'src/graphql/models/base.model'
+import { CategoryItemModel } from 'src/graphql/models/category.model'
 
 export enum CategoryType {
   Category,
   Tag,
 }
 
+@ArgsType()
 export class CategoryDto {
   @IsString()
   @IsNotEmpty()
-  @ApiProperty()
   name: string
 
   @IsEnum(CategoryType)
   @IsOptional()
-  @ApiProperty({ enum: [0, 1] })
+  @Field(() => CategoryType, { nullable: true })
   type?: CategoryType
 
   @IsString()
@@ -41,17 +43,18 @@ export class CategoryDto {
   @IsOptional()
   slug?: string
 }
-
-export class SlugOrIdDto {
+@ArgsType()
+export class SlugArgsDto {
   @IsString()
   @IsNotEmpty()
-  @ApiProperty()
-  query?: string
+  @IsOptional()
+  slug?: string
 }
 
+@ArgsType()
 export class MultiQueryTagAndCategoryDto {
   @IsOptional()
-  @Transform((val) => {
+  @Transform(val => {
     if (val === '1' || val === 'true') {
       return true
     } else {
@@ -59,21 +62,23 @@ export class MultiQueryTagAndCategoryDto {
     }
   })
   @IsBooleanOrString()
+  @Field(() => [Boolean, String])
   tag?: boolean | string
 }
-export class MultiCategoriesQueryDto {
+@ArgsType()
+export class MultiCategoriesArgsDto {
   @IsOptional()
   @IsMongoId({
     each: true,
     message: '多分类查询使用逗号分隔, 应为 mongoID',
   })
-  @Transform((str) => uniq(str.split(',')))
+  @Transform(str => uniq(str.split(',')))
+  @Field(() => [String], { nullable: true })
   ids?: Array<string>
 
   @IsOptional()
   @IsBoolean()
-  @Transform((b) => Boolean(b))
-  @ApiProperty({ enum: [1, 0] })
+  @Transform(b => Boolean(b))
   joint?: boolean
 
   @IsOptional()
@@ -90,5 +95,16 @@ export class MultiCategoriesQueryDto {
         return CategoryType.Category
     }
   })
-  type: CategoryType
+  @Field(() => CategoryType)
+  type?: CategoryType
 }
+
+@ObjectType()
+export class CategoryPagerModel {
+  @Field(() => [CategoryItemModel], { nullable: true })
+  data: CategoryItemModel[]
+
+  // pager: PagerModel
+}
+
+registerEnumType(CategoryType, { name: 'CategoryType' })

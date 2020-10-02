@@ -24,7 +24,7 @@ import { isDev } from './utils'
       debug: isDev,
       playground: isDev,
       autoSchemaFile: 'schema.gql',
-      installSubscriptionHandlers: true,
+      // installSubscriptionHandlers: true,
       context: ({ req }) => ({ req }),
       // typePaths: ['./**/*.gql'],
       // autoSchemaFile: true,

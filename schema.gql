@@ -27,7 +27,8 @@ type CategoryItemModel {
   _id: ID!
   created: DateTime!
   modified: DateTime!
-  type: Float!
+  type: CategoryType_!
+  children: [PostItemModel!]
   name: String!
   slug: String!
 }
@@ -36,6 +37,11 @@ type CategoryItemModel {
 A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
 """
 scalar DateTime
+
+enum CategoryType_ {
+  Category
+  Tag
+}
 
 type PostItemModel {
   _id: ID!
@@ -61,13 +67,24 @@ type PostPagerArgs {
   data: [PostItemModel!]!
 }
 
+type CategoryPagerModel {
+  data: [CategoryItemModel!]
+}
+
 type Query {
   getPostById(id: ID!): PostItemModel!
   getPostBySlug(category: String!, slug: String!): PostItemModel!
   getPostsWithPager(sortOrder: SortOrder, size: Float, page: Float, state: Float, sortBy: String, year: Float): PostPagerArgs!
+  getCategories(ids: [String!], type: CategoryType, joint: Boolean): CategoryPagerModel!
+  getCategoryBySlug(id: String, tag: [Boolean!], slug: String): CategoryItemModel!
 }
 
 enum SortOrder {
   DESC
   ASC
+}
+
+enum CategoryType {
+  Category
+  Tag
 }

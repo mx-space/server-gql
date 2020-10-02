@@ -1,15 +1,16 @@
 /*
  * @Author: Innei
  * @Date: 2020-10-01 13:47:59
- * @LastEditTime: 2020-10-01 21:18:30
+ * @LastEditTime: 2020-10-02 13:45:39
  * @LastEditors: Innei
  * @FilePath: /mx-server-next/src/shared/posts/posts.resolver.ts
  * @Mark: Coding with Love
  */
-import { NotFoundException, UseGuards } from '@nestjs/common'
+import { NotFoundException, UseGuards, UseInterceptors } from '@nestjs/common'
 import { Args, Query, Resolver } from '@nestjs/graphql'
 import { RolesGuard } from 'src/auth/roles.guard'
 import { Master } from 'src/core/decorators/guest.decorator'
+import { PermissionInterceptor } from 'src/core/interceptors/permission.interceptors'
 import { IdInputArgsDto, PagerArgsDto } from 'src/graphql/args/id.input'
 import { addConditionToSeeHideContent, yearCondition } from 'src/utils'
 import { PostItemModel } from '../../graphql/models/post.model'
@@ -18,12 +19,13 @@ import { PostsService } from './posts.service'
 
 @Resolver()
 @UseGuards(RolesGuard)
+@UseInterceptors(PermissionInterceptor)
 export class PostsResolver {
   constructor(private postService: PostsService) {}
 
   @Query(() => PostItemModel)
   public async getPostById(@Args() { id }: IdInputArgsDto) {
-    return await this.postService.findById(id).populate('category')
+    return await this.postService.findPostById(id)
   }
 
   @Query(() => PostItemModel)
@@ -66,4 +68,5 @@ export class PostsResolver {
       populate: 'category',
     })
   }
+  // TODO search
 }

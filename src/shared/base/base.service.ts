@@ -19,6 +19,7 @@ import {
   Types,
   UpdateQuery,
 } from 'mongoose'
+import { CannotFindException } from 'src/core/exceptions/cant-find.exception'
 import { AnyType } from 'src/shared/base/interfaces'
 
 export type enumOrderType = 'asc' | 'desc' | 'ascending' | 'descending' | 1 | -1
@@ -167,14 +168,14 @@ export class BaseService<T extends BaseModel> {
     }
   }
 
-  public async countDocument(condition: AnyType): Promise<number> {
+  public async countDocument(condition?: AnyType): Promise<number> {
     return this._model.countDocuments(condition)
   }
 
-  public async findByIdAsync(id: string | Types.ObjectId): Promise<T> {
+  public async findByIdException(id: string | Types.ObjectId): Promise<T> {
     const query = await this._model.findById(id).sort({ created: -1 })
     if (!query) {
-      throw new BadRequestException('此记录不存在')
+      throw new CannotFindException()
     }
     return query as T
   }
