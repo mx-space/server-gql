@@ -71,12 +71,47 @@ type CategoryPagerModel {
   data: [CategoryItemModel!]
 }
 
+type NoteItemCount {
+  read: Int
+  like: Int
+}
+
+type NoteItemModel {
+  _id: ID!
+  commentsIndex: Int
+  count: NoteItemCount!
+  images: [ImageRecordModel!]
+  nid: Int!
+  allowComment: Boolean!
+  created: DateTime!
+  modified: DateTime!
+  hide: Boolean!
+  mood: String
+  weather: String
+  text: String!
+  title: String!
+}
+
+type NoteItemAggregateModel {
+  data: NoteItemModel!
+  prev: NoteItemModel
+  next: NoteItemModel
+}
+
+type NotePagerModel {
+  data: [NoteItemModel!]!
+  pager: PagerModel!
+}
+
 type Query {
   getPostById(id: ID!): PostItemModel!
   getPostBySlug(category: String!, slug: String!): PostItemModel!
   getPostsWithPager(sortOrder: SortOrder, size: Float, page: Float, state: Float, sortBy: String, year: Float): PostPagerArgs!
   getCategories(ids: [String!], type: CategoryType, joint: Boolean): CategoryPagerModel!
   getCategoryBySlug(id: String, tag: [Boolean!], slug: String): CategoryItemModel!
+  getNoteById(password: String, nid: Int, id: ID): NoteItemAggregateModel!
+  getLastestNote: NoteItemAggregateModel!
+  getNotesWithPager(sortOrder: SortOrder, size: Float, page: Float, state: Float, sortBy: String, year: Float): NotePagerModel!
 }
 
 enum SortOrder {

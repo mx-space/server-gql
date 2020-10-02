@@ -34,7 +34,7 @@ export type AsyncQueryList<T extends BaseModel> = Promise<
 >
 export type AsyncQueryListWithPaginator<T extends BaseModel> = Promise<{
   data: Array<DocumentType<T>>
-  page: Paginator
+  pager: Paginator
 }>
 
 export type QueryItem<T extends BaseModel> = DocumentQuery<
@@ -157,7 +157,7 @@ export class BaseService<T extends BaseModel> {
     const totalPage = Math.ceil(total / limit) || 1
     return {
       data: queryList,
-      page: {
+      pager: {
         total,
         size: queryList.length,
         currentPage: page,
@@ -212,7 +212,7 @@ export class BaseService<T extends BaseModel> {
     return this._model.findOne(conditions as any, projection || {}, options)
   }
 
-  public async findOneAsync(
+  public async findOneAsyncException(
     conditions: AnyType,
     projection?: object | string,
     options:
@@ -221,6 +221,9 @@ export class BaseService<T extends BaseModel> {
   ): Promise<T> {
     const { ...option } = options
     const docsQuery = await this.findOne(conditions, projection || {}, option)
+    if (!docsQuery) {
+      throw new CannotFindException()
+    }
     return docsQuery as T
   }
 
