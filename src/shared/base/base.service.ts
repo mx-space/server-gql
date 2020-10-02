@@ -123,7 +123,6 @@ export class BaseService<T extends BaseModel> {
   /**
    * 根据条件查找
    */
-  // FIXME async maybe cause some bugs
   public async find(condition: FilterQuery<T>, options: QueryOptions = {}) {
     return this._model.find(condition as any).setOptions(options)
   }
@@ -274,23 +273,10 @@ export class BaseService<T extends BaseModel> {
     return await this.findAndDeleteById(id, options).exec()
   }
 
-  public deleteOne(conditions: AnyType) {
-    return this._model.deleteOne(conditions)
+  get deleteOne() {
+    return this._model.deleteOne
   }
 
-  public async deleteOneAsync(conditions: AnyType) {
-    const r = await this.deleteOne(conditions)
-    return { ...r, message: r.deletedCount ? '删除成功' : '删除失败' }
-  }
-
-  public async deleteByIdAsync(id: string) {
-    if (Types.ObjectId.isValid(id)) {
-      return await this.deleteOneAsync({
-        _id: id,
-      })
-    }
-    throw new TypeError('_id muse be MongoId')
-  }
   /**
    * @description 更新指定id数据
    * @param {string} id

@@ -1,7 +1,7 @@
 /*
  * @Author: Innei
  * @Date: 2020-09-17 14:04:22
- * @LastEditTime: 2020-10-02 11:38:06
+ * @LastEditTime: 2020-10-02 21:48:54
  * @LastEditors: Innei
  * @FilePath: /mx-server-next/src/auth/local.strategy.ts
  * @Mark: Coding with Love
@@ -30,6 +30,7 @@ export class LocalStrategy extends PassportStrategy(Strategy, 'local') {
 
   async validate(username: string, password: string) {
     const user = await this.userModel.findOne({ username }).select('+password')
+
     if (!user) {
       await sleep(3000)
       throw new ForbiddenError('用户名不正确')

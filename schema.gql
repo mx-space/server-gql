@@ -23,6 +23,29 @@ type PagerModel {
   hasPrevPage: Boolean!
 }
 
+type MasterModel {
+  _id: ID!
+  created: DateTime!
+  modified: DateTime!
+  token: String!
+  name: String!
+  username: String!
+  url: String
+  mail: String
+  avatar: String
+  expiresIn: Float!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type ValidPayloadModel {
+  ok: Int!
+  isGuest: Boolean!
+}
+
 type CategoryItemModel {
   _id: ID!
   created: DateTime!
@@ -32,11 +55,6 @@ type CategoryItemModel {
   name: String!
   slug: String!
 }
-
-"""
-A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
-"""
-scalar DateTime
 
 enum CategoryType_ {
   Category
@@ -104,6 +122,8 @@ type NotePagerModel {
 }
 
 type Query {
+  checkLogged: ValidPayloadModel!
+  login(input: LoginDto!): MasterModel!
   getPostById(id: ID!): PostItemModel!
   getPostBySlug(category: String!, slug: String!): PostItemModel!
   getPostsWithPager(sortOrder: SortOrder, size: Float, page: Float, state: Float, sortBy: String, year: Float): PostPagerArgs!
@@ -112,6 +132,11 @@ type Query {
   getNoteById(password: String, nid: Int, id: ID): NoteItemAggregateModel!
   getLastestNote: NoteItemAggregateModel!
   getNotesWithPager(sortOrder: SortOrder, size: Float, page: Float, state: Float, sortBy: String, year: Float): NotePagerModel!
+}
+
+input LoginDto {
+  username: String!
+  password: String!
 }
 
 enum SortOrder {
