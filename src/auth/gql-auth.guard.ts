@@ -1,7 +1,7 @@
 /*
  * @Author: Innei
  * @Date: 2020-10-02 21:43:32
- * @LastEditTime: 2020-10-02 21:44:06
+ * @LastEditTime: 2020-10-03 10:09:23
  * @LastEditors: Innei
  * @FilePath: /mx-server-next/src/auth/gql-auth.guard.ts
  * @Mark: Coding with Love
@@ -22,6 +22,9 @@ export class GqlAuthGuard extends AuthGuard('jwt') {
 export class GqlAuthLocalGuard extends AuthGuard('local') {
   getRequest(context: ExecutionContext) {
     const ctx = GqlExecutionContext.create(context)
-    return ctx.getContext().req
+    const req = ctx.getContext().req
+    req.body = ctx.getArgs().input || ctx.getArgs()
+
+    return req
   }
 }
