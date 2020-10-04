@@ -68,7 +68,7 @@
     "@types/ua-parser-js": "0.7.33",
     "@typescript-eslint/eslint-plugin": "4.3.0",
     "@typescript-eslint/parser": "4.3.0",
-    "eslint": "7.7.0",
+    "eslint": "7.10.0",
     "eslint-config-prettier": "6.12.0",
     "eslint-plugin-import": "2.22.1",
     "jest": "26.4.2",
