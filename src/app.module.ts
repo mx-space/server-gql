@@ -1,7 +1,7 @@
 /*
  * @Author: Innei
  * @Date: 2020-10-01 13:12:26
- * @LastEditTime: 2020-10-01 21:02:51
+ * @LastEditTime: 2020-10-03 10:42:35
  * @LastEditors: Innei
  * @FilePath: /mx-server-next/src/app.module.ts
  * @Mark: Coding with Love
@@ -9,10 +9,9 @@
 import { DbModule } from '@libs/db'
 import { Module } from '@nestjs/common'
 import { GraphQLModule } from '@nestjs/graphql'
-import { AppController } from './app.controller'
-import { AppService } from './app.service'
 import { AuthModule } from './auth/auth.module'
 import { ConfigsModule } from './common/global/configs/configs.module'
+import { GlobalModule } from './common/global/global.module'
 import { SharedModule } from './shared/shared.module'
 import { isDev } from './utils'
 
@@ -20,6 +19,7 @@ import { isDev } from './utils'
   imports: [
     ConfigsModule,
     DbModule,
+    GlobalModule,
     GraphQLModule.forRoot({
       debug: isDev,
       playground: isDev,
@@ -32,7 +32,7 @@ import { isDev } from './utils'
     AuthModule,
     SharedModule,
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [],
+  providers: [],
 })
 export class AppModule {}

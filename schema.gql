@@ -121,6 +121,50 @@ type NotePagerModel {
   pager: PagerModel!
 }
 
+type PageItemModel {
+  _id: ID!
+  created: DateTime!
+  modified: DateTime!
+  title: String!
+  text: String!
+  images: [ImageRecordModel!]
+  commentsIndex: Int!
+  order: Int!
+  allowComment: Boolean!
+  slug: String!
+  subtitle: String
+}
+
+type User {
+  _id: ID
+  created: DateTime
+  modified: DateTime
+  token: String
+  name: String
+  username: String
+  url: String
+  mail: String
+  avatar: String
+  expiresIn: Float
+}
+
+type TopModel {
+  notes: [PostItemModel!]
+  posts: [PostItemModel!]
+}
+
+type AggregateQueryModel {
+  user: User!
+  lastestNote: NoteItemModel!
+  pages: [PageItemModel!]
+  top: TopModel!
+}
+
+type TimelineModel {
+  notes: [NoteItemModel!]
+  posts: [PostItemModel!]
+}
+
 type Query {
   checkLogged: ValidPayloadModel!
   login(input: LoginDto!): MasterModel!
@@ -132,6 +176,8 @@ type Query {
   getNoteById(password: String, nid: Int, id: ID): NoteItemAggregateModel!
   getLastestNote: NoteItemAggregateModel!
   getNotesWithPager(sortOrder: SortOrder, size: Float, page: Float, state: Float, sortBy: String, year: Float): NotePagerModel!
+  aggregate(size: Int = 6): AggregateQueryModel!
+  getTimeline(sort: Int = 1, year: Float): TimelineModel!
 }
 
 input LoginDto {

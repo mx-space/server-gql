@@ -34,6 +34,19 @@ export class ImageRecordModel implements TextImageRecordType {
 }
 
 @ObjectType()
+export class BaseTextGLModel extends BaseGLModel {
+  title: string
+
+  text: string
+}
+
+@ObjectType()
+export class TextModelImplementsImageRecordModel extends BaseTextGLModel {
+  @Field(() => [ImageRecordModel], { nullable: true })
+  images?: ImageRecordModel[]
+}
+
+@ObjectType()
 export class PostItemCount {
   like?: number
 

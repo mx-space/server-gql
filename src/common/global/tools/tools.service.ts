@@ -1,9 +1,9 @@
 /*
  * @Author: Innei
  * @Date: 2020-08-24 21:35:20
- * @LastEditTime: 2020-08-24 21:44:37
+ * @LastEditTime: 2020-10-03 10:30:32
  * @LastEditors: Innei
- * @FilePath: /mx-server/src/common/tools/tools.service.ts
+ * @FilePath: /mx-server-next/src/common/global/tools/tools.service.ts
  * @Coding with Love
  */
 import Category, { CategoryType } from '@libs/db/models/category.model'
@@ -30,7 +30,7 @@ export class ToolsService {
   async getSiteMapContent() {
     const baseURL = this.configs.get('url').webUrl
     const posts = (await this.postModel.find().populate('category')).map(
-      (doc) => {
+      doc => {
         return {
           url: new URL(
             `/posts/${(doc.category as Category).slug}/${doc.slug}`,
@@ -40,14 +40,14 @@ export class ToolsService {
         }
       },
     )
-    const notes = (await this.noteModel.find().lean()).map((doc) => {
+    const notes = (await this.noteModel.find().lean()).map(doc => {
       return {
         url: new URL(`/notes/${doc.nid}`, baseURL),
         published_at: doc.modified,
       }
     })
 
-    const pages = (await this.pageModel.find().lean()).map((doc) => {
+    const pages = (await this.pageModel.find().lean()).map(doc => {
       return {
         url: new URL(`/${doc.slug}`, baseURL),
         published_at: doc.modified,
@@ -59,18 +59,11 @@ export class ToolsService {
     )
   }
 
-  async getLastestNoteNid() {
-    return (
-      await this.noteModel.findOne().sort({ nid: -1 }).lean().select('nid')
-    ).nid
-  }
-
-  async getAllCategory() {
-    return await this.categoryModel.find({ type: CategoryType.Category }).lean()
-  }
-
-  async getAllPages(select: string) {
-    return await this.pageModel.find().select(select).sort({ order: -1 }).lean()
+  async getLastestNote() {
+    return await this.noteModel
+      .findOne()
+      .sort({ nid: -1 })
+      .lean()
   }
 
   async getCounts() {
