@@ -9,7 +9,11 @@
 import { TextImageRecordType } from '@libs/db/models/base.model'
 import Note from '@libs/db/models/note.model'
 import { Field, ID, Int, ObjectType } from '@nestjs/graphql'
-import { ImageRecordModel } from './base.model'
+import {
+  ImageRecordModel,
+  PagerModel,
+  PagerModelImplements,
+} from './base.model'
 
 @ObjectType()
 class NoteItemCount {
@@ -53,4 +57,10 @@ export class NoteItemAggregateModel {
   data: NoteItemModel
   prev?: NoteItemModel
   next?: NoteItemModel
+}
+
+@ObjectType()
+export class NotePagerModel implements PagerModelImplements {
+  data: NoteItemModel[]
+  pager: PagerModel
 }

@@ -7,7 +7,6 @@
  * @Mark: Coding with Love
  */
 import { TextImageRecordType } from '@libs/db/models/base.model'
-import { Type } from '@nestjs/common'
 import { Field, ID, ObjectType } from '@nestjs/graphql'
 
 @ObjectType()

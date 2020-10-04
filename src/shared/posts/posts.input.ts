@@ -1,7 +1,5 @@
-import { ArgsType, Field, ObjectType } from '@nestjs/graphql'
-import { IsString, IsNotEmpty } from 'class-validator'
-import { PagerModelImplements, PagerModel } from 'src/graphql/models/base.model'
-import { PostItemModel } from 'src/graphql/models/post.model'
+import { ArgsType, Field } from '@nestjs/graphql'
+import { IsNotEmpty, IsString } from 'class-validator'
 
 @ArgsType()
 export class SlugTitleInput {
@@ -14,12 +12,4 @@ export class SlugTitleInput {
   @IsNotEmpty()
   @Field()
   slug: string
-}
-
-@ObjectType()
-export class PostPagerArgs implements PagerModelImplements {
-  @Field(() => PagerModel)
-  pager: PagerModel
-  @Field(() => [PostItemModel])
-  data: PostItemModel[]
 }

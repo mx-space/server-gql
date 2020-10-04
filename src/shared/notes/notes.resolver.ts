@@ -20,9 +20,12 @@ import { Master } from 'src/core/decorators/guest.decorator'
 import { CannotFindException } from 'src/core/exceptions/cant-find.exception'
 import { PermissionInterceptor } from 'src/core/interceptors/permission.interceptors'
 import { PagerArgsDto } from 'src/graphql/args/id.input'
-import { NoteItemAggregateModel } from 'src/graphql/models/note.model'
+import {
+  NoteItemAggregateModel,
+  NotePagerModel,
+} from 'src/graphql/models/note.model'
 import { addConditionToSeeHideContent, yearCondition } from 'src/utils'
-import { NidOrIdArgsDto, NotePagerModel, PasswordArgsDto } from './notes.input'
+import { NidOrIdArgsDto, PasswordArgsDto } from './notes.input'
 import { NotesService } from './notes.service'
 
 @Resolver()

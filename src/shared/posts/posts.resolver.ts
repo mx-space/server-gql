@@ -13,8 +13,8 @@ import { Master } from 'src/core/decorators/guest.decorator'
 import { PermissionInterceptor } from 'src/core/interceptors/permission.interceptors'
 import { IdInputArgsDto, PagerArgsDto } from 'src/graphql/args/id.input'
 import { addConditionToSeeHideContent, yearCondition } from 'src/utils'
-import { PostItemModel } from '../../graphql/models/post.model'
-import { PostPagerArgs, SlugTitleInput } from './posts.input'
+import { PostItemModel, PostPagerModel } from '../../graphql/models/post.model'
+import { SlugTitleInput } from './posts.input'
 import { PostsService } from './posts.service'
 
 @Resolver()
@@ -49,7 +49,7 @@ export class PostsResolver {
     return postDocument
   }
 
-  @Query(() => PostPagerArgs)
+  @Query(() => PostPagerModel)
   // @Query(() => [PostItemModel])
   public async getPostsWithPager(
     @Master() isMaster: boolean,

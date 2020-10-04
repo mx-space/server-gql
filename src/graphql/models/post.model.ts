@@ -9,7 +9,13 @@
 import { TextImageRecordType } from '@libs/db/models/base.model'
 import Post from '@libs/db/models/post.model'
 import { Field, ObjectType } from '@nestjs/graphql'
-import { BaseGLModel, ImageRecordModel, PostItemCount } from './base.model'
+import {
+  BaseGLModel,
+  ImageRecordModel,
+  PagerModel,
+  PagerModelImplements,
+  PostItemCount,
+} from './base.model'
 import { CategoryItemModel } from './category.model'
 @ObjectType()
 export class PostItemModel extends BaseGLModel implements Post {
@@ -43,4 +49,12 @@ export class PostItemModel extends BaseGLModel implements Post {
 
   @Field(() => [String], { nullable: true })
   public readonly tags: string[]
+}
+
+@ObjectType()
+export class PostPagerModel implements PagerModelImplements {
+  @Field(() => PagerModel)
+  pager: PagerModel
+  @Field(() => [PostItemModel])
+  data: PostItemModel[]
 }

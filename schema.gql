@@ -80,7 +80,7 @@ type PostItemModel {
   summary: String
 }
 
-type PostPagerArgs {
+type PostPagerModel {
   pager: PagerModel!
   data: [PostItemModel!]!
 }
@@ -135,6 +135,11 @@ type PageItemModel {
   subtitle: String
 }
 
+type PagePagerModel {
+  data: [PageItemModel!]
+  pager: PagerModel!
+}
+
 type User {
   _id: ID
   created: DateTime
@@ -170,7 +175,7 @@ type Query {
   login(input: LoginDto!): MasterModel!
   getPostById(id: ID!): PostItemModel!
   getPostBySlug(category: String!, slug: String!): PostItemModel!
-  getPostsWithPager(sortOrder: SortOrder, size: Float, page: Float, state: Float, sortBy: String, year: Float): PostPagerArgs!
+  getPostsWithPager(sortOrder: SortOrder, size: Float, page: Float, state: Float, sortBy: String, year: Float): PostPagerModel!
   getCategories(ids: [String!], type: CategoryType, joint: Boolean): CategoryPagerModel!
   getCategoryBySlug(id: String, tag: [Boolean!], slug: String): CategoryItemModel!
   getNoteById(password: String, nid: Int, id: ID): NoteItemAggregateModel!
@@ -178,6 +183,8 @@ type Query {
   getNotesWithPager(sortOrder: SortOrder, size: Float, page: Float, state: Float, sortBy: String, year: Float): NotePagerModel!
   aggregate(size: Int = 6): AggregateQueryModel!
   getTimeline(sort: Int = 1, year: Float): TimelineModel!
+  getPages(sortOrder: SortOrder, size: Float, page: Float, state: Float, sortBy: String, year: Float): PagePagerModel!
+  getPage(id: String, slug: String): PageItemModel!
 }
 
 input LoginDto {

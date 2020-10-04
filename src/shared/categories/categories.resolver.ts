@@ -1,12 +1,11 @@
 /*
  * @Author: Innei
  * @Date: 2020-10-02 12:05:10
- * @LastEditTime: 2020-10-02 14:23:08
+ * @LastEditTime: 2020-10-04 09:27:45
  * @LastEditors: Innei
  * @FilePath: /mx-server-next/src/shared/categories/categories.resolver.ts
  * @Mark: Coding with Love
  */
-import { BadRequestException } from '@nestjs/common'
 import { Args, Query, Resolver } from '@nestjs/graphql'
 import { Master } from 'src/core/decorators/guest.decorator'
 import { CannotFindException } from 'src/core/exceptions/cant-find.exception'
@@ -20,7 +19,7 @@ import {
   MultiCategoriesArgsDto,
   MultiQueryTagAndCategoryDto,
   SlugArgsDto,
-} from './dto/category.input'
+} from './category.input'
 
 @Resolver()
 export class CategoriesResolver {

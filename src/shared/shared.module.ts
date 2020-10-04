@@ -15,8 +15,10 @@ import { NotesResolver } from './notes/notes.resolver';
 import { NotesService } from './notes/notes.service';
 import { AggregateResolver } from './aggregate/aggregate.resolver';
 import { AggregateService } from './aggregate/aggregate.service';
+import { PagesResolver } from './pages/pages.resolver';
+import { PagesService } from './pages/pages.service';
 
 @Module({
-  providers: [PostsService, CategoriesService, PostsResolver, CategoriesResolver, NotesResolver, NotesService, AggregateResolver, AggregateService],
+  providers: [PostsService, CategoriesService, PostsResolver, CategoriesResolver, NotesResolver, NotesService, AggregateResolver, AggregateService, PagesResolver, PagesService],
 })
 export class SharedModule {}
