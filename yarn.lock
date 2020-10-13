@@ -3804,10 +3804,10 @@ dataloader@2.0.0:
   resolved "https://registry.yarnpkg.com/dataloader/-/dataloader-2.0.0.tgz#41eaf123db115987e21ca93c005cd7753c55fe6f"
   integrity sha512-YzhyDAwA4TaQIhM5go+vCLmU0UikghC/t9DTQYZR2M/UvZ1MdOhPezSDZcjj9uqQJOMqjLcpWtyW2iNINdlatQ==
 
-dayjs@1.9.1:
-  version "1.9.1"
-  resolved "https://registry.yarnpkg.com/dayjs/-/dayjs-1.9.1.tgz#201a755f7db5103ed6de63ba93a984141c754541"
-  integrity sha512-01NCTBg8cuMJG1OQc6PR7T66+AFYiPwgDvdJmvJBn29NGzIG+DIFxPLNjHzwz3cpFIvG+NcwIjP9hSaPVoOaDg==
+dayjs@1.9.2:
+  version "1.9.2"
+  resolved "https://registry.yarnpkg.com/dayjs/-/dayjs-1.9.2.tgz#544197b9e84e5193bcc55752cd38a88d7ccbfa79"
+  integrity sha512-5l+y3PCqAe6LXEC/Tcx7O3t/qqESZO9siraIXZSrPRNqwFzJopYcaKSh271XbAUsdQ3dUBcJ5N//nEjTjF1ebw==
 
 de-indent@^1.0.2:
   version "1.0.2"
