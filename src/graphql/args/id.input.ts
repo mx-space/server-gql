@@ -45,15 +45,18 @@ export class PagerArgsDto {
   @Min(1)
   @Max(20)
   @IsOptional()
+  @Field(() => Int)
   size?: number
 
   @IsInt()
   @Min(1)
   @IsOptional()
+  @Field(() => Int)
   page?: number
 
   @IsInt()
   @IsOptional()
+  @Field(() => Int)
   state?: number
 
   @IsOptional()
@@ -70,6 +73,7 @@ export class PagerArgsDto {
 
   @IsOptional()
   @IsInt()
+  @Field(() => Int)
   year?: number
 }
 

@@ -10,15 +10,15 @@ type ImageRecordModel {
 }
 
 type PostItemCount {
-  like: Float
-  read: Float
+  like: Int
+  read: Int
 }
 
 type PagerModel {
-  total: Float!
-  size: Float!
-  currentPage: Float!
-  totalPage: Float!
+  total: Int!
+  size: Int!
+  currentPage: Int!
+  totalPage: Int!
   hasNextPage: Boolean!
   hasPrevPage: Boolean!
 }
@@ -100,6 +100,7 @@ type NoteItemModel {
   count: NoteItemCount!
   images: [ImageRecordModel!]
   nid: Int!
+  music: [NoteMusicModel!]
   allowComment: Boolean!
   created: DateTime!
   modified: DateTime!
@@ -119,6 +120,11 @@ type NoteItemAggregateModel {
 type NotePagerModel {
   data: [NoteItemModel!]!
   pager: PagerModel!
+}
+
+type NoteMusicModel {
+  id: String!
+  type: String!
 }
 
 type PageItemModel {
@@ -175,15 +181,15 @@ type Query {
   login(input: LoginDto!): MasterModel!
   getPostById(id: ID!): PostItemModel!
   getPostBySlug(category: String!, slug: String!): PostItemModel!
-  getPostsWithPager(sortOrder: SortOrder, size: Float, page: Float, state: Float, sortBy: String, year: Float): PostPagerModel!
+  getPostsWithPager(size: Int, page: Int, state: Int, sortOrder: SortOrder, year: Int, sortBy: String): PostPagerModel!
   getCategories(ids: [String!], type: CategoryType, joint: Boolean): CategoryPagerModel!
   getCategoryBySlug(id: String, tag: [Boolean!], slug: String): CategoryItemModel!
   getNoteById(password: String, nid: Int, id: ID): NoteItemAggregateModel!
   getLastestNote: NoteItemAggregateModel!
-  getNotesWithPager(sortOrder: SortOrder, size: Float, page: Float, state: Float, sortBy: String, year: Float): NotePagerModel!
+  getNotesWithPager(size: Int, page: Int, state: Int, sortOrder: SortOrder, year: Int, sortBy: String): NotePagerModel!
   aggregate(size: Int = 6): AggregateQueryModel!
   getTimeline(sort: Int = 1, year: Float): TimelineModel!
-  getPages(sortOrder: SortOrder, size: Float, page: Float, state: Float, sortBy: String, year: Float): PagePagerModel!
+  getPages(size: Int, page: Int, state: Int, sortOrder: SortOrder, year: Int, sortBy: String): PagePagerModel!
   getPage(id: String, slug: String): PageItemModel!
 }
 

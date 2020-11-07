@@ -7,7 +7,7 @@
  * @Mark: Coding with Love
  */
 import { TextImageRecordType } from '@libs/db/models/base.model'
-import Note from '@libs/db/models/note.model'
+import Note, { NoteMusic } from '@libs/db/models/note.model'
 import { Field, ID, Int, ObjectType } from '@nestjs/graphql'
 import {
   ImageRecordModel,
@@ -50,6 +50,9 @@ export class NoteItemModel implements Note {
   nid: number
   text: string
   title: string
+
+  @Field(() => [NoteMusicModel], { nullable: true })
+  music?: NoteMusicModel[]
 }
 
 @ObjectType()
@@ -63,4 +66,12 @@ export class NoteItemAggregateModel {
 export class NotePagerModel implements PagerModelImplements {
   data: NoteItemModel[]
   pager: PagerModel
+}
+
+@ObjectType()
+export class NoteMusicModel implements NoteMusic {
+  @Field()
+  id: string
+  @Field()
+  type: string
 }

@@ -7,7 +7,7 @@
  * @Mark: Coding with Love
  */
 import { TextImageRecordType } from '@libs/db/models/base.model'
-import { Field, ID, ObjectType } from '@nestjs/graphql'
+import { Field, ID, Int, ObjectType } from '@nestjs/graphql'
 
 @ObjectType()
 export abstract class BaseGLModel {
@@ -47,8 +47,10 @@ export class TextModelImplementsImageRecordModel extends BaseTextGLModel {
 
 @ObjectType()
 export class PostItemCount {
+  @Field(() => Int)
   like?: number
 
+  @Field(() => Int)
   read?: number
 }
 
@@ -57,18 +59,22 @@ export class PagerModel {
   /**
    * 总条数
    */
+  @Field(() => Int)
   total: number
   /**
    * 一页多少条
    */
+  @Field(() => Int)
   size: number
   /**
    * 当前页
    */
+  @Field(() => Int)
   currentPage: number
   /**
    * 总页数
    */
+  @Field(() => Int)
   totalPage: number
   hasNextPage: boolean
   hasPrevPage: boolean
