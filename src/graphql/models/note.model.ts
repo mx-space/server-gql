@@ -37,8 +37,10 @@ export class NoteItemModel implements Note {
   @Field(() => NoteItemCount)
   count: NoteItemCount
 
-  created: Date
-  modified: Date
+  //@ts-ignore
+  created: string
+  // @ts-ignore
+  modified: string
 
   hide: boolean
 

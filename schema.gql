@@ -63,8 +63,8 @@ enum CategoryType_ {
 
 type PostItemModel {
   _id: ID!
-  created: DateTime!
-  modified: DateTime!
+  created: String!
+  modified: String!
   category: CategoryItemModel!
   count: PostItemCount!
   images: [ImageRecordModel!]
@@ -102,8 +102,8 @@ type NoteItemModel {
   nid: Int!
   music: [NoteMusicModel!]
   allowComment: Boolean!
-  created: DateTime!
-  modified: DateTime!
+  created: String!
+  modified: String!
   hide: Boolean!
   mood: String
   weather: String
@@ -129,8 +129,8 @@ type NoteMusicModel {
 
 type PageItemModel {
   _id: ID!
-  created: DateTime!
-  modified: DateTime!
+  created: String!
+  modified: String!
   title: String!
   text: String!
   images: [ImageRecordModel!]

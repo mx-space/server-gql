@@ -27,6 +27,11 @@ export class PageItemModel extends TextModelImplementsImageRecordModel
   slug: string
 
   subtitle?: string
+
+  //@ts-ignore
+  created: string
+  // @ts-ignore
+  modified: string
 }
 
 @ObjectType()
