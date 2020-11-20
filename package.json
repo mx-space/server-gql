@@ -42,7 +42,7 @@
     "graphql": "15.4.0",
     "graphql-tools": "7.0.1",
     "mongoose": "5.10.15",
-    "mongoose-lean-virtuals": "0.7.3",
+    "mongoose-lean-virtuals": "0.7.4",
     "mongoose-unique-validator": "2.0.3",
     "nanoid": "3.1.18",
     "nestjs-typegoose": "7.1.38",
